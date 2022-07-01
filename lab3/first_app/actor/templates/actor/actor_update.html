@@ -1,0 +1,12 @@
+{% extends 'general_templates/base.html'%}
+
+{% block body_content %}
+<form method="POST" action="{% url 'actor:update' actor.id %}" class="container alignemet-center form-control input-sm form-group">
+    <div class="input-group input-group-sm">
+    {% csrf_token%}
+    {{form.as_p}}
+    <button type="submit" class="btn btn-primary ">Update Actor</button>
+</div>
+</form>
+
+{% endblock%}

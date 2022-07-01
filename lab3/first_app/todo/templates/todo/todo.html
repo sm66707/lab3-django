@@ -1,0 +1,41 @@
+{% extends 'general_templates/base.html' %}
+{% load custom_tags %}
+ {{ my_var}}
+<h1>WELCOME</h1>
+
+{% block body_content %}
+{% my_custom_tag as my_var %}
+My var: {{my_var}} 
+
+{% if warning_msg %}
+<div class="alert alert-danger">{{warning_msg}}</div>
+
+{% endif %}
+    <table class="table">
+
+        <thead>
+            <th>Name</th>
+            <th>Finished</th>
+            <th>Description</th>
+            <th>Action</th>
+        </thead>
+        <tbody>
+            {% for todo,value in my_todos.items %}
+
+            <tr>
+                <td>{{todo}}</td>
+                <td>{{value.is_done}}</td>
+                <td>{{value.description|my_filter}}</td>
+                <td> 
+                    <a href="{% url 'todo:detail' todo%}" class="btn btn-info">Detail View</a>
+                    <a href="{% url 'todo:done' todo%}" class="btn btn-success">Done</a>
+                    <a href="{% url 'todo:edit' todo%}" class="btn btn-warning">Edit</a>
+                    <a href="{% url 'todo:delete' todo%}" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+{% endblock%}
